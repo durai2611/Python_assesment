@@ -103,7 +103,6 @@ print(len(t))
 result = len(set(t)) == 1
 print(result)   
 
-#
 
 
 
