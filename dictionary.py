@@ -127,7 +127,44 @@ student = {"math": 90, "science": 85, "history": 70, "english": 88}
 min_key = min(student, key=student.get)
 print(min_key)
 
-#
+#Exercise 16: Change value of a key in a nested dictionary
+student = {
+    "name": "durai",
+    "details": {
+        "age": 34,
+        "city": "bengalore",
+        "marks": {
+            "math": 90,
+            "science": 85,
+            "history": 88
+        }
+    }
+}
+student["details"]["marks"]["science"] = 95
+print(student["details"]["marks"])
+
+#Exercise 17:Inverted dictionary
+student = {"math": 90, "science": 85, "history": 70, "english": 88}
+inverted = dict(zip(student.values(), student.keys()))
+print(inverted)
+
+#Exercise 18: Sort Dictionary by Keys
+sorted_dict = dict(sorted(student.items()))
+print(sorted_dict)
+
+#Exercise 19: Sort Dictionary by Values
+student = {"math": 90, "science": 85, "history": 70, "english": 88}
+sorted_dict = {k: student[k] for k in sorted(student, key=student.get)}
+print(sorted_dict)
+
+#Exercise 20: Check if All Values are Unique
+values = student.values()
+is_unique = len(values) == len(set(values))
+print(is_unique)  
+
+
+
+
 
 
 
