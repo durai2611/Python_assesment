@@ -8,7 +8,7 @@ sentence = "A man, a plan, a canal: Panama"
 sentence = sentence.lower()
 chars = []
 for ch in sentence:
-    if ch.isalnum():   # keep only letters and digits
+    if ch.isalnum():   
         chars.append(ch)
 cleaned = "".join(chars)
 print(cleaned == cleaned[::-1])
