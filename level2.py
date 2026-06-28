@@ -186,4 +186,61 @@ def time_until_new_year(current_date_str):
     return f"{days} days, {hours} hours, {minutes} minutes until New Year!"
 print(time_until_new_year("2026-01-02"))
 
+#Exercise 19: Business Days Calculator
+from datetime import datetime, timedelta
+
+def add_business_days(start_date_str, n):
+    # Parse the start date string
+    current_date = datetime.strptime(start_date_str, "%Y-%m-%d")
+    
+    days_added = 0
+    while days_added < n:
+        current_date += timedelta(days=1)
+        if current_date.weekday() < 5:
+            days_added += 1
+    return current_date.strftime("%Y-%m-%d")
+start = "2026-01-02"  
+n = 5
+result = add_business_days(start, n)
+print(result) 
+
+#Exercise 20: Custom Iterator Class
+class PowerOfTwo:
+    def __init__(self, max_exponent):
+        self.max_exponent = max_exponent
+        self.current = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.current > self.max_exponent:
+            raise StopIteration
+        result = 2 ** self.current
+        self.current += 1
+        return result
+powers = PowerOfTwo(3)
+for value in powers:
+    print(value)
+
+#Exercise 21: Find Duplicates in O(n) Time
+def find_duplicates(lst):
+    seen = set()
+    duplicates = set()
+    
+    for num in lst:
+        if num in seen:
+            duplicates.add(num)
+        else:
+            seen.add(num)
+    
+    return duplicates
+numbers = [1, 2, 3, 2, 4, 5, 1, 6]
+result = find_duplicates(numbers)
+print("Duplicates found:", result)
+
+#
+
+
+
 
