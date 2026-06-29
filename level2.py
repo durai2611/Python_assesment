@@ -239,7 +239,284 @@ numbers = [1, 2, 3, 2, 4, 5, 1, 6]
 result = find_duplicates(numbers)
 print("Duplicates found:", result)
 
-#
+#Exercise 22: Singly Linked List Implementation
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def append(self, data):
+        new_node = Node(data)
+        if not self.head:  # If list is empty
+            self.head = new_node
+            return
+        
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next = new_node
+
+    def display(self):
+        current = self.head
+        while current:
+            print(current.data, end=" -> ")
+            current = current.next
+        print("None")
+
+
+# Example usage
+ll = LinkedList()
+ll.append(10)
+ll.append(20)
+ll.append(30)
+ll.display()
+
+#Exercise 23: Stack Implementation (LIFO)
+class Stack:
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        if not self.is_empty():
+            return self.items.pop()
+        return None
+
+    def peek(self):
+        if not self.is_empty():
+            return self.items[-1]
+        return None
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+stack = Stack()
+stack.push("google.com")
+stack.push("pynative.com")
+
+print("Current Top:", stack.peek())   
+popped = stack.pop()
+print("Popped:", popped)             
+print("New Top:", stack.peek())      
+
+#Exercise 24: Queue Implementation (FIFO)
+from collections import deque
+
+class Queue:
+    def __init__(self):
+        self.items = deque()
+
+    def enqueue(self, item):
+        self.items.append(item)
+
+    def dequeue(self):
+        if not self.is_empty():
+            return self.items.popleft()
+        return None
+
+    def peek(self):
+        if not self.is_empty():
+            return self.items[0]
+        return None
+
+    def is_empty(self):
+        return len(self.items) == 0
+queue = Queue()
+queue.enqueue("Customer A")
+queue.enqueue("Customer B")
+
+serving = queue.dequeue()
+print("Serving:", serving)             
+print("Next in line:", queue.peek())   
+
+#Exercise 25: Recursive Binary Search
+def binary_search(arr, target, low=0, high=None):
+    if high is None:
+        high = len(arr) - 1
+
+    # Base case: target not found
+    if low > high:
+        return -1
+
+    mid = (low + high) // 2
+
+    if arr[mid] == target:
+        return mid
+    elif arr[mid] > target:
+        return binary_search(arr, target, low, mid - 1)
+    else:
+        return binary_search(arr, target, mid + 1, high)
+
+
+# Example usage
+sorted_list = [10, 20, 30, 40, 50, 60]
+target = 50
+
+index = binary_search(sorted_list, target)
+if index != -1:
+    print(f"Target found at index: {index}")
+else:
+    print("Target not found")
+
+#Exercise 26: Lambda Sorting with Tuples
+employees = [("Alice", 30, 50000), 
+             ("Bob", 25, 75000), 
+             ("Charlie", 35, 60000)]
+
+# Sort primarily by Salary (index 2) in descending order
+sorted_employees = sorted(employees, key=lambda x: x[2], reverse=True)
+
+print(sorted_employees)
+
+#Exercise 27: Map and Filter Combination
+nums = [1, 2, 3, 4, 5, 6]
+squares_of_evens = list(map(lambda x: x**2, filter(lambda x: x % 2 == 0, nums)))
+print(squares_of_evens)
+
+#Exercise 28: Custom @timer Decorator
+import time
+import functools
+
+def timer(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(f"Function '{func.__name__}' took {end - start:.4f} seconds to run.")
+        return result
+    return wrapper
+
+@timer
+def waste_time():
+    time.sleep(1.5)  # Simulate heavy computation
+
+# Example usage
+waste_time()
+
+#Exercise 29: Fibonacci Generator (Memory Efficiency)   
+def fibonacci(n):
+    a, b = 0, 1
+    count = 0
+    while count < n:
+        yield a
+        a, b = b, a + b
+        count += 1
+
+n = 8
+print(f"First {n} Fibonacci numbers:", end=" ")
+for num in fibonacci(n):
+    print(num, end=" ")
+
+#Exercise 30: Custom Context Manager ( with statement)
+class DatabaseConnection:
+    def __enter__(self):
+        print("Connecting to Database...")
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        if exc_type:
+            print(f"Error: {exc_value}")
+        print("Closing Database Connection safely.")
+        # Returning False ensures exceptions are not suppressed
+        return False
+
+try:
+    with DatabaseConnection() as conn:
+        print("Processing data...")
+        # Simulate an error
+        raise Exception("something went wrong")
+except Exception:
+    pass
+#Exercise 31: The Versatile *args and **kwargs
+def log_event(message, *args, **kwargs):
+    print(f"Event: {message}")
+    if args:
+        print(f"Details: {args}")
+    if kwargs:
+        print(f"Metadata: {kwargs}")
+log_event("User Login", "admin", "dashboard", timestamp="10:00 AM", status="Success")
+
+#Exercise 32: Zip and Enumerate Mapping
+names = ["durai", "varun", "rajan"]
+scores = [85, 92, 78]
+
+# Combine into dictionary
+student_scores = dict(zip(names, scores))
+
+# Sort by score in descending order
+sorted_students = sorted(student_scores.items(), key=lambda x: x[1], reverse=True)
+
+# Print ranked list using enumerate
+for rank, (name, score) in enumerate(sorted_students, start=1):
+    print(f"Rank {rank}: {name} scored {score}")
+
+#Exercise 33: Memoization with lru_cache
+import functools
+@functools.lru_cache(maxsize=None)
+def fibonacci(n):
+    if n < 0:
+        raise ValueError("n must be a non-negative integer")
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci(n - 1) + fibonacci(n - 2)
+result = fibonacci(50)
+print(f"Fibonacci(50) = {result}")
+
+#Exercise 34: Set Operations for Data Analysis
+trial = [1, 2, 3, 4, 5]
+paid = [4, 5, 6, 7, 8]
+
+# Convert to sets
+trial_set = set(trial)
+paid_set = set(paid)
+
+# Find upgraded (both trial and paid)
+upgraded = trial_set & paid_set
+
+# Find leads (trial only)
+leads = trial_set - paid_set
+
+# Find unique status (not both)
+unique_status = trial_set ^ paid_set
+
+print("Upgraded (Both):", upgraded)
+print("Leads (Trial only):", leads)
+print("Unique Status (Not both):", unique_status)
+
+#Exercise 35: Inheritance and Method Overriding
+class Vehicle:
+    def __init__(self, brand):
+        self.brand = brand
+
+    def fuel_type(self):
+        return "Generic Fuel"
+
+class ElectricCar(Vehicle):
+    def fuel_type(self):
+        return "Electricity"
+
+# Example usage
+car = ElectricCar("Tesla")
+print(f"Brand: {car.brand}")
+print(f"Fuel Type: {car.fuel_type()}")
+
+
+
+
+
+
+
+
 
 
 
