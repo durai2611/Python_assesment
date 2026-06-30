@@ -510,6 +510,146 @@ car = ElectricCar("Tesla")
 print(f"Brand: {car.brand}")
 print(f"Fuel Type: {car.fuel_type()}")
 
+#Exercise 36: Encapsulation (Private Attributes)
+class BankAccount:
+    def __init__(self, initial_balance=0):
+        self.__balance = initial_balance
+
+    def deposit(self, amount):
+        if amount > 0:
+            self.__balance += amount
+            print(f"Deposited {amount}. New Balance: {self.__balance}")
+        else:
+            print("Deposit amount must be positive.")
+
+    def withdraw(self, amount):
+        if amount > self.__balance:
+            print("Insufficient funds!")
+        else:
+            self.__balance -= amount
+            print(f"Withdrew {amount}. New Balance: {self.__balance}")
+
+    def get_balance(self):
+        return self.__balance
+account = BankAccount(100)
+account.deposit(50)
+account.withdraw(200)  # triggers warning
+print("Final Balance:", account.get_balance())
+
+#Exercise 37: Property Decorators ( @property )
+class Student:
+    def __init__(self, name):
+        self.name = name
+        self.__score = 0  # private attribute
+
+    @property
+    def score(self):
+        return self.__score
+
+    @score.setter
+    def score(self, value):
+        if 0 <= value <= 100:
+            self.__score = value
+        else:
+            raise ValueError("Score must be between 0 and 100.")
+
+s = Student("durai")
+s.score = 105  
+
+#Exercise 38: Class Methods vs. Static Methods
+class Pizza:
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
+
+    @classmethod
+    def margherita(cls):
+        # Pre-configured Pizza object
+        return cls("Margherita", 8.99)
+
+    @staticmethod
+    def validate_topping(topping):
+        healthy_toppings = {"tomato", "spinach", "mushroom", "pineapple"}
+        return topping.lower() in healthy_toppings
+
+my_pizza = Pizza.margherita()
+print(f"Pizza ordered: {my_pizza.name}")
+
+is_valid = Pizza.validate_topping("pineapple")
+print("Is topping valid?", is_valid)
+
+#Exercise 39: Magic Methods ( __str__ and __add__ )
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return f"({self.x}, {self.y})"
+
+    def __add__(self, other):
+        if isinstance(other, Point):
+            return Point(self.x + other.x, self.y + other.y)
+        return NotImplemented
+
+p1 = Point(1, 2)
+p2 = Point(3, 4)
+print(p1 + p2) 
+
+#Exercise 40: Abstract Base Classes (ABC)
+from abc import ABC, abstractmethod
+import math
+
+class Shape(ABC):
+    @abstractmethod
+    def area(self):
+        pass
+
+class Circle(Shape):
+    def __init__(self, radius):
+        self.radius = radius
+
+    def area(self):
+        return math.pi * (self.radius ** 2)
+
+class Square(Shape):
+    def __init__(self, side):
+        self.side = side
+
+    def area(self):
+        return self.side ** 2
+
+shapes = [Circle(5), Square(4)]
+
+for shape in shapes:
+    if isinstance(shape, Circle):
+        print(f"Circle Area: {shape.area():.2f}")
+    elif isinstance(shape, Square):
+        print(f"Square Area: {shape.area()}")
+
+#Exercise 41: Multiple Inheritance and MRO
+class Flyer:
+    def fly(self):
+        print("Flying high!")
+
+class Swimmer:
+    def swim(self):
+        print("Swimming fast!")
+
+class Duck(Flyer, Swimmer):
+    pass
+
+# Example usage
+d = Duck()
+d.fly()
+d.swim()
+
+print("MRO:", Duck.__mro__)
+
+
+
+
+
 
 
 
