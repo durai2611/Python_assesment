@@ -643,8 +643,162 @@ class Duck(Flyer, Swimmer):
 d = Duck()
 d.fly()
 d.swim()
-
 print("MRO:", Duck.__mro__)
+
+#Exercise 42: Composition over Inheritance
+class CPU:
+    def __init__(self, model):
+        self.model = model
+
+class RAM:
+    def __init__(self, size):
+        self.size = size
+
+class Computer:
+    def __init__(self, cpu_model, ram_size):
+        # Composition: Computer has-a CPU and has-a RAM
+        self.cpu = CPU(cpu_model)
+        self.ram = RAM(ram_size)
+
+    def __str__(self):
+        return f"Computer with {self.cpu.model} CPU and {self.ram.size} RAM."
+
+my_comp = Computer("Intel i7", "16GB")
+print(my_comp)
+
+#Exercise 43: The Singleton Pattern
+class Database:
+    _instance = None  # class-level attribute to store the single instance
+
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            print("Loading Database...")
+            cls._instance = super().__new__(cls)
+        return cls._instance
+db1 = Database()
+db2 = Database()
+print(db1 is db2)  # True → both point to the same object
+
+#Exercise 44: Data Classes ( @dataclass )
+from dataclasses import dataclass
+@dataclass
+class Book:
+    title: str
+    author: str
+    pages: int
+b1 = Book("1984", "George Orwell", 328)
+print(b1)
+
+#Exercise 53: Student Management System
+# Dictionary to hold student records
+students = {}
+
+def add_student(student_id, name, grade):
+    students[student_id] = {"Name": name, "Grade": grade}
+
+def update_grade(student_id, new_grade):
+    if student_id in students:
+        students[student_id]["Grade"] = new_grade
+    else:
+        print(f"Student ID {student_id} not found.")
+
+def display_all():
+    for sid, info in students.items():
+        print(f"ID: {sid} | Name: {info['Name']} | Grade: {info['Grade']}")
+add_student(101, "Alice", "A")
+update_grade(101, "A+")
+display_all()
+
+#Exercise 54: Password Strength Checker
+import string
+
+def strength_score(password):
+    score = 0
+    
+    # Criteria checks
+    if len(password) >= 8:
+        score += 1
+    if any(ch.isupper() for ch in password):
+        score += 1
+    if any(ch.islower() for ch in password):
+        score += 1
+    if any(ch.isdigit() for ch in password):
+        score += 1
+    if any(ch in string.punctuation for ch in password):
+        score += 1
+
+    descriptions = {
+        0: "Very Weak",
+        1: "Weak",
+        2: "Fair",
+        3: "Good",
+        4: "Strong",
+        5: "Very Strong"
+    }
+    
+    return f"Strength: {score}/5 ({descriptions[score]})"
+print(strength_score("P@ss123"))
+
+#Exercise 55: Number Guessing Game (Computer vs User)
+import random
+
+def number_guessing_game():
+    target = random.randint(1, 100)
+    attempts = 10
+    print("I'm thinking of a number between 1 and 100.")
+
+    while attempts > 0:
+        print(f"({attempts} left)")
+        guess = int(input("Enter guess: "))
+
+        if guess == target:
+            print(f"Correct! The number was {target}.")
+            break
+        elif guess < target:
+            print("Higher!")
+        else:
+            print("Lower!")
+
+        attempts -= 1
+
+    if attempts == 0:
+        print(f"Out of attempts! The number was {target}.")
+number_guessing_game()
+
+#Exercise 57: Prime Number Generator
+import math
+
+def primes_in_range(start, end):
+    primes = []
+    for num in range(start, end + 1):
+        if num < 2:
+            continue
+        is_prime = True
+        # Only check divisors up to sqrt(num)
+        for i in range(2, int(math.sqrt(num)) + 1):
+            if num % i == 0:
+                is_prime = False
+                break
+        if is_prime:
+            primes.append(num)
+    return primes
+print("Primes:", primes_in_range(10, 50))
+#Exercise 66: Find the second largest number
+# User input as a string
+user_input = "1,2,3,4,5"
+
+# Convert to list of integers
+numbers = [int(x) for x in user_input.split(",")]
+
+# Remove duplicates and sort
+numbers = sorted(set(numbers))
+
+# Second largest is simply the second last element
+print(numbers[-2])
+
+
+
+
 
 
 
