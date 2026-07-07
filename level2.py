@@ -765,6 +765,16 @@ def number_guessing_game():
         print(f"Out of attempts! The number was {target}.")
 number_guessing_game()
 
+#Exercise 56: File Word Count Tool
+# Open the file in read mode
+f = open("sample.txt", "r")
+data = f.read()
+f.close()
+lines = data.splitlines()
+words = data.split()
+characters = len(data)
+print("Lines:", len(lines), "| Words:", len(words), "| Characters:", characters)
+
 #Exercise 57: Prime Number Generator
 import math
 
@@ -783,18 +793,39 @@ def primes_in_range(start, end):
             primes.append(num)
     return primes
 print("Primes:", primes_in_range(10, 50))
-#Exercise 66: Find the second largest number
-# User input as a string
-user_input = "1,2,3,4,5"
 
-# Convert to list of integers
-numbers = [int(x) for x in user_input.split(",")]
+#
+#Exercise 66: Find the second largest number
+# Input list
+numbers = [1, 2, 3, 4, 5]
 
 # Remove duplicates and sort
 numbers = sorted(set(numbers))
 
-# Second largest is simply the second last element
+# Print the second largest
 print(numbers[-2])
+
+#Exercise 67: Print numbers in reverse order using function recursive method
+def print_reverse(n):
+    if n < 0:
+        return
+    print(n, end=" ")
+    print_reverse(n - 1)
+
+print_reverse(10)
+
+
+#Exercise 68: Print Fibonacci series in recursive method
+def fibonacci(n):
+    if n <= 1:
+        return n
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)
+
+# Print first 9 Fibonacci numbers
+for i in range(9):
+    print(fibonacci(i), end=",")
+
 
 
 
