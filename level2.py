@@ -1,7 +1,10 @@
 #Exercise 1: List Comprehension Mastery
 words = ["apple", "bat", "cherry", "dog", "elderberry"]
-result = [w.upper() for w in words if len(w) >= 4]
-print(result)
+new_list = []
+for word in words:
+    if len(word) >= 4:   
+        new_list.append(word)
+print(new_list)
 
 #Exercise 2: Dictionary Merging with Logic
 dict_a = {'a': 10, 'b': 20}
@@ -10,12 +13,10 @@ merged = dict_a | dict_b
 print(merged)
 
 #Exercise 3: Frequency Map with Counter
-from collections import Counter
 text = "Python Programming"
-text = text.lower()
-text = text.replace(" ", "")
-frequency = Counter(text)
-print("Character Frequency:", frequency)
+from collections import Counter
+letter_count = Counter(ch for ch in text.lower())
+print(letter_count)
 
 #Exercise 4: Anagram Checker
 def are_anagrams(word1, word2):
@@ -41,8 +42,10 @@ print("Flattened:", result)
 
 #Exercise 6: Reverse Each Word of a String
 sentence = "Python is awesome"
-reversed_sentence = " ".join([word[::-1] for word in sentence.split()])
-print(reversed_sentence)  
+split_word= sentence.split()
+print(split_word)
+output=" ".join(split_word[::-1])
+print(output) 
 
 #Exercise 7: Palindrome Sentence
 sentence = "A man, a plan, a canal: Panama"
