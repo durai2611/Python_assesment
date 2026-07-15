@@ -94,7 +94,7 @@ print(filtered)
 
 #Exercise 14: List Comprehension for Numbers
 numbers = [1, 2, 3, 4, 5, 6]
-evens = [x for x in numbers if x % 2 == 0]
+evens = [x**2 for x in numbers if x % 2 == 0]
 print(evens)
 
 #Exercise 15: Access Nested Lists

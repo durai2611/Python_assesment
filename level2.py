@@ -6,11 +6,8 @@ print(result)
 #Exercise 2: Dictionary Merging with Logic
 dict_a = {'a': 10, 'b': 20}
 dict_b = {'b': 5, 'c': 15}
-
-merged = dict_a.copy()   # start with dict_a
-for key, value in dict_b.items():
-    merged[key] = merged.get(key, 0) + value
-print("Merged Dictionary:", merged)
+merged = dict_a | dict_b
+print(merged)
 
 #Exercise 3: Frequency Map with Counter
 from collections import Counter
