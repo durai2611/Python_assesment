@@ -3,7 +3,7 @@ words = ["apple", "bat", "cherry", "dog", "elderberry"]
 new_list = []
 for word in words:
     if len(word) >= 4:   
-        new_list.append(word)
+        new_list.append(word.upper())
 print(new_list)
 
 #Exercise 2: Dictionary Merging with Logic
@@ -65,14 +65,14 @@ print(result)  # Output: ['education', 'umbrella']
 
 #Exercise 9: Remove Duplicates (Preserving Order)
 def remove_duplicates(lst):
-    seen = []
+    new_list = []
     for item in lst:
-        if item not in seen:
-            seen.append(item)
-    return seen
-input_list = [1, 2, 2, 3, 1, 4, 2]
-output_list = remove_duplicates(input_list)
-print(output_list)  # Output: [1, 2, 3, 4]
+        if item not in new_list:   # only add if not already present
+            new_list.append(item)
+    return new_list
+numbers = [7,1, 2, 2, 3, 1, 4, 2]
+result = remove_duplicates(numbers)
+print(result)
 
 #Exercise 10: Circular Shift (Rotation)
 def rotate_list(lst, n, direction):
@@ -90,20 +90,21 @@ output_list = rotate_list(input_list, shift, direction)
 print(output_list)  # Output: [4, 5, 1, 2, 3]
 
 #Exercise 11: Dictionary Merging (Value Grouping)
-def merge_dicts(d1, d2):
-    merged = {}
-    for key in set(d1.keys()).union(d2.keys()):
-        values = []
-        if key in d1:
-            values.append(d1[key])
-        if key in d2:
-            values.append(d2[key])
-        merged[key] = values
-    return merged
 d1 = {"a": 1, "b": 2}
 d2 = {"b": 3, "c": 4}
-result = merge_dicts(d1, d2)
-print(result)  # Output: {'a': [1], 'b': [2, 3], 'c': [4]}
+
+merged = {}
+
+for k, v in d1.items():
+    merged[k] = v
+
+for k, v in d2.items():
+    if k in merged:
+        merged[k] = [merged[k], v]   # keep both values
+    else:
+        merged[k] = v
+
+print(merged)
 
 #Exercise 12: Inverted Index
 def invert_dict(author_books):
